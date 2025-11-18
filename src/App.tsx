@@ -8,7 +8,7 @@ import Profile from "./pages/Profile";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Unauthorized from "./pages/Unauthorized";
 
-import Overview from "./pages/Overview";
+import Dashboard from "./pages/Dashboard";
 import OverviewMerchant from "./pages/OverviewMerchant";
 
 import MyMerchantProfile from "./pages/MyMerchantProfile";
@@ -35,8 +35,6 @@ import EditUser from "./pages/users/EditUser";
 
 // Import Role Pages
 import RoleList from "./pages/roles/RoleList";
-import AddRole from "./pages/roles/AddRole";
-import EditRole from "./pages/roles/EditRole";
 
 // Import Merchant Pages
 import MerchantList from "./pages/merchants/MerchantList";
@@ -55,7 +53,6 @@ import EditAssignProduct from "./pages/merchant_products/EditAssignProduct";
 import WarehouseProductList from "./pages/warehouse_products/WarehouseProductList";
 import AssignWarehouseProduct from "./pages/warehouse_products/AssignProduct";
 import EditWarehouseProduct from "./pages/warehouse_products/EditWarehouseProduct";
-import AssignUserRoles from "./pages/user_roles/AssignUserRoles";
 import TransactionDetails from "./pages/transactions/TransactionDetails";
 import TransactionProvider from "./providers/TransactionProvider";
 import TransactionSuccess from "./pages/transactions/TransactionSuccess";
@@ -75,7 +72,7 @@ function App() {
           
           {/* Protected Routes for Manager */}
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/overview" element={<ProtectedRoute roles={['manager']}><Overview /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute roles={['manager']}><Dashboard /></ProtectedRoute>} />
           
           {/* Protected Routes for Keeper */}
           <Route path="/overview-merchant" element={<ProtectedRoute roles={['keeper']}><OverviewMerchant /></ProtectedRoute>} />
@@ -103,10 +100,6 @@ function App() {
           
           {/* Role Management Routes */}
           <Route path="/roles" element={<ProtectedRoute roles={['manager']}><RoleList /></ProtectedRoute>} />
-          <Route path="/roles/add" element={<ProtectedRoute roles={['manager']}><AddRole /></ProtectedRoute>} />
-          <Route path="/roles/edit/:id" element={<ProtectedRoute roles={['manager']}><EditRole /></ProtectedRoute>} />
-          
-          <Route path="/users/assign-roles" element={<ProtectedRoute roles={['manager']}><AssignUserRoles /></ProtectedRoute>} />
           
           {/* Merchant Management Routes */}
           <Route path="/merchants" element={<ProtectedRoute roles={['manager']}><MerchantList /></ProtectedRoute>} />

@@ -8,12 +8,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
-  useRoleRedirect(); // 🔄 redirect handled by hook
+  useRoleRedirect();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-
     try {
       await login(email, password);
     } catch (error) {
@@ -24,112 +23,111 @@ const Login = () => {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <main className="flex flex-1 h-screen items-center">
-      <div className="flex flex-col h-screen overflow-hidden rounded-tr-[32px] pl-[30px] pt-[46px] w-[685px] shrink-0 blue-gradient">
-        <p className="font-semibold text-lg text-monday-lime-green-char">
-          — Manage Stock and Merchants
-        </p>
-        <p className="font-extrabold text-[42px] uppercase text-white mt-4 mb-[30px]">
-          Optimized Inventory,
-          <br />
-          Effortless Workflow 🎯{" "}
-        </p>
-        <div className="flex flex-1 overflow-hidden rounded-tl-[20px]">
+    <div className="bg-white w-full">
+      <div className="flex justify-center h-screen w-full">
+        {/* === LEFT SIDE: LOGIN FORM === */}
+        <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-3/8">
+          <div className="flex-1">
+            <div className="text-center">
+              <div className="flex justify-center mx-auto mb-10">
+                <div className="flex items-center">
+                  <img
+                    className="w-auto h-7 sm:h-8"
+                    src="/assets/images/logos/logo.svg"
+                    alt="logo"
+                  />
+                  <p className="pl-2 font-semibold text-2xl">SimGudangToko</p>
+                </div>
+              </div>
+              <p className="mt-3 text-font font-semibold text-2xl">
+                Welcome back!
+              </p>
+              <p className="mt-1 text-font font-normal text-sm">
+                Keep up the spirit of living the day.
+              </p>
+            </div>
+
+            <div className="mt-8">
+              <form onSubmit={handleLogin}>
+                <div>
+                  <label
+                    htmlFor="email"
+                    className="block mb-2 text-sm text-font"
+                  >
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    placeholder="example@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border 
+                    border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 
+                    focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+
+                <div className="mt-6">
+                  <div className="flex justify-between mb-2">
+                    <label
+                      htmlFor="password"
+                      className="text-sm text-font"
+                    >
+                      Password
+                    </label>
+                  </div>
+
+                  <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    required
+                    placeholder="Your Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border 
+                    border-gray-200 rounded-lg focus:border-blue-400 focus:ring-blue-400 
+                    focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                  <a
+                      href="#"
+                      className="text-sm flex justify-end mt-2 text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline"
+                    >
+                      Forgot password?
+                    </a>
+                </div>
+
+                {error && (
+                  <p className="mt-3 text-sm text-red-500 text-center">{error}</p>
+                )}
+
+                <div className="mt-6">
+                  <button
+                    type="submit"
+                    className="cursor-pointer w-full rounded-full px-4 py-3 tracking-wide text-white border transition-colors duration-300 transform bg-primary hover:bg-white hover:border-primary hover:text-primary"
+                  >
+                    Sign in
+                  </button>
+                </div>
+              </form>
+
+            </div>
+          </div>
+        </div>
+
+        {/* === RIGHT SIDE: IMAGE === */}
+        <div className="m-5 ml-0 rounded-xl hidden lg:flex lg:w-5/8 bg-[#B9CDEB] items-center justify-center">
           <img
-            src="/assets/images/backgrounds/bg-image-1.png"
-            className="size-full object-cover object-left-top"
-            alt="image"
+            src="\assets\images\backgrounds\login.svg"
+            alt="Background Illustration"
+            className="max-w-full max-h-full object-contain"
           />
         </div>
       </div>
-      <div className="flex flex-1 items-center justify-center">
-        <form
-          onSubmit={handleLogin}
-          className="flex flex-col w-[435px] shrink-0 rounded-3xl gap-10 p-6 bg-white"
-        >
-          <img
-            src="/assets/images/logos/logo.svg"
-            className="w-[203px] mx-auto"
-            alt="logo"
-          />
-          <div className="flex flex-col gap-[30px]">
-            <div className="flex flex-col gap-3 text-center">
-              <p className="font-semibold text-2xl">Hey🙌🏻, Welcome Back!</p>
-              <p className="font-medium text-monday-gray">
-                Login to your account to continue!
-              </p>
-            </div>
-            <div className="flex flex-col gap-4 w-full">
-              <label className="group relative">
-                <div className="flex items-center pr-4 absolute transform -translate-y-1/2 top-1/2 left-6 border-r-[1.5px] border-monday-border ">
-                  <img
-                    src="/assets/images/icons/sms-grey.svg"
-                    className="flex size-6 shrink-0"
-                    alt="icon"
-                  />
-                </div>
-                <p className="placeholder font-medium text-monday-gray text-sm absolute -translate-y-1/2 left-[81px] top-[25px] group-has-[:placeholder-shown]:top-[36px] group-focus-within:top-[25px] transition-300">
-                  Your email address
-                </p>
-                <input
-                  required
-                  onChange={(e) => setEmail(e.target.value)}
-                  type="email"
-                  value={email}
-                  className="appearance-none w-full h-[72px] font-semibold text-lg rounded-3xl border-[1.5px] border-monday-border pl-20 pr-6 pb-[14.5px] pt-[34.5px] placeholder-shown:pt-[14.5px] focus:border-monday-black transition-300"
-                  placeholder="email address"
-                />
-              </label>
-              <label className="group relative">
-                <div className="flex items-center pr-4 absolute transform -translate-y-1/2 top-1/2 left-6 border-r-[1.5px] border-monday-border ">
-                  <img
-                    src="/assets/images/icons/lock-grey.svg"
-                    className="flex size-6 shrink-0"
-                    alt="icon"
-                  />
-                </div>
-                <p className="placeholder font-medium text-monday-gray text-sm absolute -translate-y-1/2 left-[81px] top-[25px] group-has-[:placeholder-shown]:top-[36px] group-focus-within:top-[25px] transition-300">
-                  Your password
-                </p>
-                <input
-                  id="passwordInput"
-                  type="password"
-                  required
-                  onChange={(e) => setPassword(e.target.value)}
-                  value={password}
-                  className="appearance-none w-full h-[72px] font-semibold text-lg rounded-3xl border-[1.5px] border-monday-border pl-20 pr-16 pb-[14.5px] pt-[34.5px] placeholder-shown:pt-[14.5px] focus:border-monday-black transition-300 tracking-[0.3em]"
-                  placeholder=""
-                />
-                <button
-                  id="togglePassword"
-                  type="button"
-                  className="absolute transform -translate-y-1/2 top-1/2 right-6"
-                >
-                  <img
-                    src="/assets/images/icons/eye-grey.svg"
-                    className="flex size-6 shrink-0"
-                    alt="icon"
-                  />
-                </button>
-              </label>
-              <p className="font-medium text-sm text-monday-gray">
-                Forget Password?{" "}
-                <a
-                  href="#"
-                  className="font-semibold text-monday-blue hover:underline"
-                >
-                  Reset Password
-                </a>
-              </p>
-            </div>
-            <button type="submit" className="btn btn-primary w-full font-bold">
-              Sign In
-            </button>
-            {error && <p style={{ color: "red" }}>{error}</p>}
-          </div>
-        </form>
-      </div>
-    </main>
+    </div>
   );
 };
 

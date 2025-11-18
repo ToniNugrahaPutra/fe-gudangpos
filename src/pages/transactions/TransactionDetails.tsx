@@ -22,7 +22,7 @@ const TransactionDetails = () => {
         <div className="flex flex-col gap-[6px] w-full">
           <h1 className="font-bold text-2xl">Transaction Details</h1>
           <Link to={'/transactions'}
-            className="flex items-center gap-[6px] text-monday-gray font-semibold"
+            className="flex items-center gap-[6px] text-font font-semibold"
           >
             <img
               src="/assets/images/icons/arrow-left-grey.svg"
@@ -34,7 +34,7 @@ const TransactionDetails = () => {
         </div>
         <div className="flex items-center flex-nowrap gap-3">
           <a href="#">
-            <div className="flex size-14 rounded-full bg-monday-gray-background items-center justify-center overflow-hidden">
+            <div className="flex size-14 rounded-full bg-font-background items-center justify-center overflow-hidden">
               <img
                 src="/assets/images/icons/search-normal-black.svg"
                 className="size-6"
@@ -43,7 +43,7 @@ const TransactionDetails = () => {
             </div>
           </a>
           <a href="#">
-            <div className="flex size-14 rounded-full bg-monday-gray-background items-center justify-center overflow-hidden">
+            <div className="flex size-14 rounded-full bg-font-background items-center justify-center overflow-hidden">
               <img
                 src="/assets/images/icons/notification-black.svg"
                 className="size-6"
@@ -81,7 +81,7 @@ const TransactionDetails = () => {
         </div>
         <div className="flex flex-col gap-2 flex-1">
           <p className="font-semibold text-xl">{`http://localhost:8000${merchant.name}`}</p>
-          <p className="flex items-center gap-1 font-medium text-lg text-monday-gray">
+          <p className="flex items-center gap-1 font-medium text-lg text-font">
             <img
               src="/assets/images/icons/call-grey.svg"
               className="size-6 flex shrink-0"
@@ -91,7 +91,7 @@ const TransactionDetails = () => {
           </p>
         </div>
         <div className="flex flex-col gap-2 flex-1">
-          <p className="flex items-center gap-1 font-medium text-monday-gray">
+          <p className="flex items-center gap-1 font-medium text-font">
             <img
               src="/assets/images/icons/user-grey.svg"
               className="size-4 flex shrink-0"
@@ -111,7 +111,7 @@ const TransactionDetails = () => {
             <p className="font-semibold text-xl">Product Purchased</p>
 
             {transaction.transaction_products.map((item) => (
-            <div className="card flex flex-col w-full rounded-3xl border border-monday-border p-4 gap-5">
+            <div className="card flex flex-col w-full rounded-3xl border border-border p-4 gap-5">
               <div className="flex items-center justify-between gap-6">
                 <div className="flex items-center gap-3 w-[316px] shrink-0">
                   <div className="flex size-[86px] rounded-2xl bg-monday-background items-center justify-center overflow-hidden">
@@ -126,7 +126,7 @@ const TransactionDetails = () => {
                       {item.product.name}
                     </p>
                     <p className="price font-semibold text-xl text-monday-blue">
-                      Rp {item.price.toLocaleString('id')} <span className="text-monday-gray">({item.quantity}x)</span>
+                      Rp {item.price.toLocaleString('id')} <span className="text-font">({item.quantity}x)</span>
                     </p>
                   </div>
                 </div>
@@ -139,9 +139,9 @@ const TransactionDetails = () => {
                   <p className="font-semibold text-lg text-nowrap">{item.product.category.name}</p>
                 </div>
               </div>
-              <hr className="border-monday-border" />
+              <hr className="border-border" />
               <div className="flex w-full items-center justify-between">
-                <p className="flex items-center gap-1 font-medium text-monday-gray">
+                <p className="flex items-center gap-1 font-medium text-font">
                   <img
                     src="/assets/images/icons/money-grey.svg"
                     className="size-6 flex shrink-0"
@@ -161,10 +161,10 @@ const TransactionDetails = () => {
             <div className="flex flex-col w-full h-fit rounded-3xl p-[18px] gap-5 bg-white">
               <div className="flex flex-col gap-5">
                 <p className="font-semibold text-lg">Customer Information</p>
-                <div className="flex items-center justify-between gap-3 rounded-2xl border border-monday-border p-4">
+                <div className="flex items-center justify-between gap-3 rounded-2xl border border-border p-4">
                   <div className="flex flex-col gap-2 flex-1">
                     <p className="font-semibold text-lg">{`http://localhost:8000${transaction.name}`}</p>
-                    <p className="flex items-center gap-1 font-medium text-lg text-monday-gray">
+                    <p className="flex items-center gap-1 font-medium text-lg text-font">
                       <img
                         src="/assets/images/icons/call-grey.svg"
                         className="size-6 flex shrink-0"
@@ -184,9 +184,9 @@ const TransactionDetails = () => {
               </div>
               <div className="flex flex-col gap-5">
                 <p className="font-semibold text-lg">Payment Information</p>
-                <div className="flex flex-col w-full items-center justify-between gap-5 rounded-2xl border border-monday-border p-4">
+                <div className="flex flex-col w-full items-center justify-between gap-5 rounded-2xl border border-border p-4">
                   <div className="flex w-full items-center justify-between">
-                    <p className="flex items-center gap-1 font-medium text-monday-gray">
+                    <p className="flex items-center gap-1 font-medium text-font">
                       <img
                         src="/assets/images/icons/shopping-cart-grey.svg"
                         className="size-6 flex shrink-0"
@@ -197,7 +197,7 @@ const TransactionDetails = () => {
                     <p className="font-semibold text-lg">{transaction.transaction_products.length} Item</p>
                   </div>
                   <div className="flex w-full items-center justify-between">
-                    <p className="flex items-center gap-1 font-medium text-monday-gray">
+                    <p className="flex items-center gap-1 font-medium text-font">
                       <img
                         src="/assets/images/icons/box-grey.svg"
                         className="size-6 flex shrink-0"
@@ -208,7 +208,7 @@ const TransactionDetails = () => {
                     <p className="font-semibold text-lg">{transaction.transaction_products.reduce((acc, item) => acc + item.quantity, 0)}x</p>
                   </div>
                   <div className="flex w-full items-center justify-between">
-                    <p className="flex items-center gap-1 font-medium text-monday-gray">
+                    <p className="flex items-center gap-1 font-medium text-font">
                       <img
                         src="/assets/images/icons/receipt-2-grey.svg"
                         className="size-6 flex shrink-0"
@@ -219,7 +219,7 @@ const TransactionDetails = () => {
                     <p className="font-semibold text-lg">Rp {transaction.sub_total.toLocaleString('id')}</p>
                   </div>
                   <div className="flex w-full items-center justify-between">
-                    <p className="flex items-center gap-1 font-medium text-monday-gray">
+                    <p className="flex items-center gap-1 font-medium text-font">
                       <img
                         src="/assets/images/icons/note-text-grey.svg"
                         className="size-6 flex shrink-0"
@@ -229,9 +229,9 @@ const TransactionDetails = () => {
                     </p>
                     <p className="font-semibold text-lg">Rp {transaction.tax_total.toLocaleString('id')}</p>
                   </div>
-                  <hr className="border-monday-border w-full" />
+                  <hr className="border-border w-full" />
                   <div className="flex w-full items-center justify-between">
-                    <p className="flex items-center gap-1 font-medium text-monday-gray">
+                    <p className="flex items-center gap-1 font-medium text-font">
                       <img
                         src="/assets/images/icons/moneys-grey.svg"
                         className="size-6 flex shrink-0"

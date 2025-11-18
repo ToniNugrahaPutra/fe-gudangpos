@@ -1,184 +1,202 @@
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar";
 import { useFetchProduct, useFetchProducts } from "../../hooks/useProducts";
-import React, { useState } from "react"; 
+import React, { useState } from "react";
 import UserProfileCard from "../../components/UserProfileCard";
+import { PlusIcon } from "@heroicons/react/24/solid";
 
-const ProductList = () => { 
-  const { data: products, isPending, isError, error } = useFetchProducts();
+const ProductList = () => {
+  const { data: products, isPending, isError, error, refetch } = useFetchProducts();
   const [selectedProductId, setSelectedProductId] = useState<number | null>(
     null
   );
   const { data: selectedProduct } = useFetchProduct(selectedProductId || 0);
-  
+
   if (isPending) return <p>Loading products...</p>;
   if (isError)
     return (
       <p className="text-red-500">Error fetching products: {error.message}</p>
     );
 
+  const handleDeleteProduct = async (id: number) => {
+    const confirmDelete = window.confirm("Yakin ingin menghapus produk ini?");
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:8000/api/products/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error("Gagal menghapus produk");
+      }
+
+      // Berhasil delete
+      alert("Produk berhasil dihapus!");
+      refetch(); // panggil ulang data produk
+    } catch (err) {
+      console.error("Error deleting product:", err);
+      alert("Terjadi kesalahan saat menghapus produk.");
+    }
+  };
   return (
     <>
-      <div id="main-container" className="flex flex-1">
+      <div id="main-container" className="flex flex-1 min-h-screen">
         <Sidebar />
-        <div id="Content" className="flex flex-col flex-1 p-6 pt-0">
+        <div id="Content" className="flex flex-col flex-1 p-5 pt-0">
           <div
             id="Top-Bar"
-            className="flex items-center w-full gap-6 mt-[30px] mb-6"
+            className="flex items-center w-full gap-6 mt-5 mb-6"
           >
-            <div className="flex items-center gap-6 h-[92px] bg-white w-full rounded-3xl p-[18px]">
-              <div className="flex flex-col gap-[6px] w-full">
-                <h1 className="font-bold text-2xl">Manage Products</h1>
-              </div>
-              <div className="flex items-center flex-nowrap gap-3">
-                <a href="#">
-                  <div className="flex size-14 rounded-full bg-monday-gray-background items-center justify-center overflow-hidden">
-                    <img
-                      src="assets/images/icons/search-normal-black.svg"
-                      className="size-6"
-                      alt="icon"
-                    />
-                  </div>
-                </a>
-                <a href="#">
-                  <div className="flex size-14 rounded-full bg-monday-gray-background items-center justify-center overflow-hidden">
-                    <img
-                      src="assets/images/icons/notification-black.svg"
-                      className="size-6"
-                      alt="icon"
-                    />
-                  </div>
-                </a>
-                <div className="relative w-fit">
-                  <div className="flex size-14 rounded-full bg-monday-lime-green items-center justify-center overflow-hidden">
-                    <img
-                      src="assets/images/icons/crown-black-fill.svg"
-                      className="size-6"
-                      alt="icon"
-                    />
-                  </div>
-                  <p className="absolute transform -translate-x-1/2 left-1/2 -bottom-2 rounded-[20px] py-1 px-2 bg-monday-black text-white w-fit font-extrabold text-[8px]">
-                    PRO
-                  </p>
-                </div>
-              </div>
+            <div id="Top-Bar" className="flex items-center w-full gap-6">
+              <UserProfileCard title="Manajemen Produk" />
             </div>
-            <UserProfileCard />
           </div>
           <main className="flex flex-col gap-6 flex-1">
             <section
               id="Products"
-              className="flex flex-col gap-6 flex-1 rounded-3xl p-[18px] px-0 bg-white"
+              className="flex flex-col gap-6 flex-1 rounded-3xl p-5 px-0 bg-white"
             >
               <div
                 id="Header"
-                className="flex items-center justify-between px-[18px]"
+                className="flex items-center justify-between px-5"
               >
-                <div className="flex flex-col gap-[6px]">
-                  <p className="flex items-center gap-[6px]">
-                    <img
-                      src="assets/images/icons/bag-black.svg"
-                      className="size-6 flex shrink-0"
-                      alt="icon"
-                    />
-                    <span className="font-semibold text-2xl">
-                      {products.length || 0} Total Products
+                <div className="flex flex-col">
+                  <p className="flex items-center font-semibold text-2xl text-primary">
+                    {products.length || 0}
+                    <span className="text-font pl-2 font-medium">
+                      Total Produk
                     </span>
-                  </p>
-                  <p className="font-semibold text-lg text-monday-gray">
-                    View and update your product list here.
                   </p>
                 </div>
                 <Link
                   to="/products/add"
-                  className="btn btn-primary font-semibold"
+                  className="bg-primary font-semibold flex items-center text-white h-12 px-5 rounded-full"
                 >
-                  Add New
-                  <img
-                    src="assets/images/icons/add-square-white.svg"
-                    className="flex sixe-6 shrink-0"
-                    alt="icon"
-                  />
+                  Tambah Produk
+                  <PlusIcon className=" ml-2 size-6" />
                 </Link>
               </div>
-              <hr className="border-monday-border" />
-              <div
-                id="Product-List"
-                className="flex flex-col px-4 gap-5 flex-1"
-              >
-                <div className="flex items-center justify-between">
-                  <p className="font-semibold text-xl">All Products</p>
-                </div>
-
+              <div id="Product-List" className="flow-root flex-1">
                 {products.length > 0 ? (
-                  <div className="flex flex-col gap-5">
-                    {products.map((product) => (
-                      <React.Fragment key={product.id}>
-                        <div className="card flex items-center justify-between gap-3">
-                          <div className="flex items-center gap-3 w-[380px] shrink-0">
-                            <div className="flex size-[86px] rounded-2xl bg-monday-background items-center justify-center overflow-hidden">
-                              <img
-                                src={product.thumbnail}
-                                className="size-full object-contain"
-                                alt="icon"
-                              />
-                            </div>
-                            <div className="flex flex-col gap-2 flex-1">
-                              <p className="font-semibold text-xl w-[282px] truncate">
-                                {product.name}
-                              </p>
-                              <p className="font-semibold text-xl text-monday-blue">
-                                Rp {product.price.toLocaleString("id")}
-                              </p>
-                            </div>
-                          </div>
-                          <div className="flex items-center gap-[6px] min-w-[212px]">
-                            <img
-                              src={`http://localhost:8000${product.category.photo}`}
-                              className="size-6 flex shrink-0"
-                              alt="icon"
-                            />
-                            <p className="font-semibold text-lg text-nowrap">
-                              {product.category.name}
-                            </p>
-                          </div>
-                          <div className="flex items-center gap-4">
-                            <button
-                              onClick={() => {
-                                setSelectedProductId(product.id);
-                              }}
-                              className="btn btn-primary-opacity min-w-[130px] font-semibold"
-                            >
-                              Details
-                            </button>
-                            <Link
-                              to={`/products/edit/${product.id}`}
-                              className="btn btn-black min-w-[130px] font-semibold"
-                            >
-                              <img
-                                src="assets/images/icons/edit-white.svg"
-                                className="flex size-6 shrink-0"
-                                alt="icon"
-                              />
-                              Edit
-                            </Link>
-                          </div>
-                        </div>
-                        <hr className="border-monday-border last:hidden" />
-                      </React.Fragment>
-                    ))}
+                  <div className="-mx-4 -my-2 overflow-x-auto">
+                    <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
+                      <div className="overflow-hidden shadow-sm outline-1 outline-black/5 sm:rounded-lg">
+                        <table className="min-w-full divide-y divide-gray-300">
+                          <thead className="bg-gray-50">
+                            <tr>
+                              <th
+                                scope="col"
+                                className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6"
+                              >
+                                Produk
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                              >
+                                Harga
+                              </th>
+                              <th
+                                scope="col"
+                                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                              >
+                                Kategori
+                              </th>
+                              <th
+                                scope="col"
+                                className="py-3.5 pr-4 pl-3 text-right text-sm font-semibold text-gray-900 sm:pr-6"
+                              >
+                                Aksi
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200 bg-white">
+                            {products.map((product) => (
+                              <tr key={product.id}>
+                                {/* Kolom Produk (thumbnail + nama) */}
+                                <td className="flex items-center gap-3 py-2 text-sm text-gray-900 px-5">
+                                  <div className="flex size-[64px] rounded-2xl bg-monday-background items-center justify-center overflow-hidden">
+                                    <img
+                                      src={product.thumbnail}
+                                      className="size-full object-contain"
+                                      alt="thumbnail"
+                                    />
+                                  </div>
+                                  <p className="font-semibold text-base truncate w-[200px]">
+                                    {product.name}
+                                  </p>
+                                </td>
+
+                                {/* Harga */}
+                                <td className="px-3 py-2 text-sm font-semibold text-monday-blue whitespace-nowrap">
+                                  Rp {product.price.toLocaleString("id")}
+                                </td>
+
+                                {/* Kategori */}
+                                <td className="px-3 py-2 text-sm whitespace-nowrap text-gray-700">
+                                  <div className="flex items-center space-x-2">
+                                    <img
+                                      src={`http://localhost:8000${product.category.photo}`}
+                                      className="size-7 flex shrink-0"
+                                      alt="category"
+                                    />
+                                    <span className="font-medium">
+                                      {product.category.name}
+                                    </span>
+                                  </div>
+                                </td>
+
+                                {/* Aksi */}
+                                <td className="py-2 pr-5 text-right text-sm font-medium whitespace-nowrap ">
+                                  <div className="flex justify-end">
+                                    <button
+                                      onClick={() =>
+                                        setSelectedProductId(product.id)
+                                      }
+                                      className="btn btn-primary-opacity min-w-[100px] font-semibold"
+                                    >
+                                      Detail
+                                    </button>
+                                    <Link
+                                      to={`/products/edit/${product.id}`}
+                                      className="font-semibold flex items-center justify-center text-blue-600"
+                                    >
+                                      <img
+                                        src="assets/images/icons/edit-white.svg"
+                                        className="size-5"
+                                        alt="edit"
+                                      />
+                                      Edit
+                                    </Link>
+                                    <button
+                                      onClick={() =>
+                                        handleDeleteProduct(product.id)
+                                      }
+                                      className="text-red-600 min-w-[100px] font-semibold cursor-pointer"
+                                    >
+                                      Hapus
+                                    </button>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 ) : (
                   <div
                     id="Empty-State"
-                    className="hidden flex flex-col flex-1 items-center justify-center rounded-[20px] border-dashed border-2 border-monday-gray gap-6"
+                    className="flex flex-col flex-1 items-center justify-center rounded-[20px] border-dashed border-2 border-border gap-6 py-10"
                   >
                     <img
                       src="assets/images/icons/document-text-grey.svg"
                       className="size-[52px]"
-                      alt="icon"
+                      alt="empty"
                     />
-                    <p className="font-semibold text-monday-gray">
+                    <p className="font-semibold text-font">
                       Oops, it looks like there's no data yet.
                     </p>
                   </div>
@@ -195,12 +213,12 @@ const ProductList = () => {
             onClick={() => setSelectedProductId(null)}
             className="absolute w-full h-full bg-[#292D32B2] cursor-pointer"
           />
-          <div className="relative flex flex-col w-[406px] shrink-0 rounded-3xl p-[18px] gap-5 bg-white">
+          <div className="relative flex flex-col w-[406px] shrink-0 rounded-3xl p-5 gap-5 bg-white">
             <div className="modal-header flex items-center justify-between">
               <p className="font-semibold text-xl">Product Details</p>
               <button
                 onClick={() => setSelectedProductId(null)}
-                className="flex size-14 rounded-full items-center justify-center bg-monday-gray-background"
+                className="flex size-14 rounded-full items-center justify-center bg-font-background"
               >
                 <img
                   src="assets/images/icons/close-circle-black.svg"
@@ -209,7 +227,7 @@ const ProductList = () => {
                 />
               </button>
             </div>
-            <div className="modal-content flex flex-col rounded-3xl border border-monday-border p-4 gap-5">
+            <div className="modal-content flex flex-col rounded-3xl border border-border p-4 gap-5">
               <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-2">
                   <p className="flex items-center gap-[6px] font-semibold text-lg">
@@ -227,7 +245,7 @@ const ProductList = () => {
                     Rp {selectedProduct.price.toLocaleString("id")}
                   </p>
                 </div>
-                <div className="flex size-[100px] rounded-2xl bg-monday-gray-background items-center justify-center overflow-hidden">
+                <div className="flex size-[100px] rounded-2xl bg-font-background items-center justify-center overflow-hidden">
                   <img
                     src={selectedProduct.thumbnail}
                     className="size-full object-contain"
@@ -235,9 +253,9 @@ const ProductList = () => {
                   />
                 </div>
               </div>
-              <hr className="border-monday-border" />
+              <hr className="border-border" />
               <div>
-                <p className="font-medium text-sm text-monday-gray">
+                <p className="font-medium text-sm text-font">
                   Product About
                 </p>
                 <p className="font-semibold leading-[160%]">
