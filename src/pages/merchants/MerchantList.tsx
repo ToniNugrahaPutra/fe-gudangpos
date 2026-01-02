@@ -19,7 +19,7 @@ const MerchantList = () => {
           className="flex items-center w-full gap-5 mt-5 mb-5"
         >
           <div id="Top-Bar" className="flex items-center w-full gap-5">
-            <UserProfileCard title="Manajemen Merchant" />
+            <UserProfileCard title="Manajemen Toko" />
           </div>
         </div>
         <main className="flex flex-col gap-5 flex-1">
@@ -33,7 +33,7 @@ const MerchantList = () => {
                 <p className="flex items-center font-semibold text-2xl text-primary">
                   {merchants.length || 0}
                   <span className="text-font pl-2 font-medium">
-                    Total Merchants
+                    Total Toko
                   </span>
                 </p>
               </div>
@@ -42,7 +42,7 @@ const MerchantList = () => {
                 to="/merchants/add"
                 className="bg-primary font-semibold flex items-center text-white h-12 px-5 rounded-full"
               >
-                Tambah Merchant
+                Tambah Toko
                 <PlusIcon className=" ml-2 size-5" />
               </Link>
             </div>
@@ -60,13 +60,13 @@ const MerchantList = () => {
                               scope="col"
                               className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-5"
                             >
-                              Merchant
+                              Toko
                             </th>
                             <th
                               scope="col"
                               className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                             >
-                              Keeper
+                              Operator
                             </th>
                             <th
                               scope="col"

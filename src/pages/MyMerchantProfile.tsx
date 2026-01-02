@@ -79,7 +79,7 @@ const MyMerchantProfile = () => {
                     className="size-4 shrink-0"
                     alt="icon"
                   />
-                  <span>Keeper Name:</span>
+                  <span>Nama Operator :</span>
                 </p>
                 <p className="font-semibold text-lg">
                   {merchant?.keeper?.name
@@ -102,7 +102,7 @@ const MyMerchantProfile = () => {
                     <span className="font-semibold text-2xl text-primary">
                       {merchant.products.length}
                       <span className="text-font pl-2 font-medium">
-                        Total Products
+                        Total Produk
                       </span>
                     </span>
                   </p>
@@ -124,7 +124,7 @@ const MyMerchantProfile = () => {
                                 Harga
                               </th>
                               <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
-                                Stock
+                                Stok
                               </th>
                               <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                 Kategori

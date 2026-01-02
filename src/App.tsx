@@ -72,68 +72,68 @@ function App() {
           
           {/* Protected Routes for Manager */}
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-          <Route path="/dashboard" element={<ProtectedRoute roles={['manager']}><Dashboard /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute roles={['admin']}><Dashboard /></ProtectedRoute>} />
           
           {/* Protected Routes for Keeper */}
-          <Route path="/overview-merchant" element={<ProtectedRoute roles={['keeper']}><OverviewMerchant /></ProtectedRoute>} />
-          <Route path="/my-merchant" element={<ProtectedRoute roles={['keeper']}><MyMerchantProfile /></ProtectedRoute>} />
+          <Route path="/overview-merchant" element={<ProtectedRoute roles={['operator']}><OverviewMerchant /></ProtectedRoute>} />
+          <Route path="/my-merchant" element={<ProtectedRoute roles={['operator']}><MyMerchantProfile /></ProtectedRoute>} />
           
           {/* Category Routes */}
-          <Route path="/categories" element={<ProtectedRoute roles={['manager']}><CategoryList /></ProtectedRoute>} />
-          <Route path="/categories/add" element={<ProtectedRoute roles={['manager']}><AddCategory /></ProtectedRoute>} />
-          <Route path="/categories/edit/:id" element={<ProtectedRoute roles={['manager']}><EditCategory /></ProtectedRoute>} />
+          <Route path="/categories" element={<ProtectedRoute roles={['admin']}><CategoryList /></ProtectedRoute>} />
+          <Route path="/categories/add" element={<ProtectedRoute roles={['admin']}><AddCategory /></ProtectedRoute>} />
+          <Route path="/categories/edit/:id" element={<ProtectedRoute roles={['admin']}><EditCategory /></ProtectedRoute>} />
           
           {/* Product Routes */}
-          <Route path="/products" element={<ProtectedRoute roles={['manager']}><ProductList /></ProtectedRoute>} />
-          <Route path="/products/add" element={<ProtectedRoute roles={['manager']}><AddProduct /></ProtectedRoute>} />
-          <Route path="/products/edit/:id" element={<ProtectedRoute roles={['manager']}><EditProduct /></ProtectedRoute>} />
+          <Route path="/products" element={<ProtectedRoute roles={['admin']}><ProductList /></ProtectedRoute>} />
+          <Route path="/products/add" element={<ProtectedRoute roles={['admin']}><AddProduct /></ProtectedRoute>} />
+          <Route path="/products/edit/:id" element={<ProtectedRoute roles={['admin']}><EditProduct /></ProtectedRoute>} />
           
           {/* Warehouse Routes */}
-          <Route path="/warehouses" element={<ProtectedRoute roles={['manager']}><WarehouseList /></ProtectedRoute>} />
-          <Route path="/warehouses/add" element={<ProtectedRoute roles={['manager']}><AddWarehouse /></ProtectedRoute>} />
-          <Route path="/warehouses/edit/:id" element={<ProtectedRoute roles={['manager']}><EditWarehouse /></ProtectedRoute>} />
+          <Route path="/warehouses" element={<ProtectedRoute roles={['admin']}><WarehouseList /></ProtectedRoute>} />
+          <Route path="/warehouses/add" element={<ProtectedRoute roles={['admin']}><AddWarehouse /></ProtectedRoute>} />
+          <Route path="/warehouses/edit/:id" element={<ProtectedRoute roles={['admin']}><EditWarehouse /></ProtectedRoute>} />
           
           {/* User Management Routes */}
-          <Route path="/users" element={<ProtectedRoute roles={['manager']}><UserList /></ProtectedRoute>} />
-          <Route path="/users/add" element={<ProtectedRoute roles={['manager']}><AddUser /></ProtectedRoute>} />
-          <Route path="/users/edit/:id" element={<ProtectedRoute roles={['manager']}><EditUser /></ProtectedRoute>} />
+          <Route path="/users" element={<ProtectedRoute roles={['admin']}><UserList /></ProtectedRoute>} />
+          <Route path="/users/add" element={<ProtectedRoute roles={['admin']}><AddUser /></ProtectedRoute>} />
+          <Route path="/users/edit/:id" element={<ProtectedRoute roles={['admin']}><EditUser /></ProtectedRoute>} />
           
           {/* Role Management Routes */}
-          <Route path="/roles" element={<ProtectedRoute roles={['manager']}><RoleList /></ProtectedRoute>} />
+          <Route path="/roles" element={<ProtectedRoute roles={['admin']}><RoleList /></ProtectedRoute>} />
           
           {/* Merchant Management Routes */}
-          <Route path="/merchants" element={<ProtectedRoute roles={['manager']}><MerchantList /></ProtectedRoute>} />
-          <Route path="/merchants/add" element={<ProtectedRoute roles={['manager']}><AddMerchant /></ProtectedRoute>} />
-          <Route path="/merchants/edit/:id" element={<ProtectedRoute roles={['manager']}><EditMerchant /></ProtectedRoute>} /> 
+          <Route path="/merchants" element={<ProtectedRoute roles={['admin']}><MerchantList /></ProtectedRoute>} />
+          <Route path="/merchants/add" element={<ProtectedRoute roles={['admin']}><AddMerchant /></ProtectedRoute>} />
+          <Route path="/merchants/edit/:id" element={<ProtectedRoute roles={['admin']}><EditMerchant /></ProtectedRoute>} /> 
 
-          <Route path="/transactions" element={<ProtectedRoute roles={['keeper']}><TransactionList /></ProtectedRoute>} />
+          <Route path="/transactions" element={<ProtectedRoute roles={['operator']}><TransactionList /></ProtectedRoute>} />
           <Route path="/transactions/add" element={
-            <ProtectedRoute roles={['keeper']}>
+            <ProtectedRoute roles={['operator']}>
               <TransactionProvider> {/* ✅ Wrap only the Add Transaction page */}
                 <AddTransaction />
               </TransactionProvider>
             </ProtectedRoute>
           } />
-          <Route path="/transactions/details/:id" element={<ProtectedRoute roles={['keeper']}><TransactionDetails /></ProtectedRoute>} />
-          <Route path="/transactions/success" element={<ProtectedRoute roles={['keeper']}><TransactionSuccess /></ProtectedRoute>} />
+          <Route path="/transactions/details/:id" element={<ProtectedRoute roles={['operator']}><TransactionDetails /></ProtectedRoute>} />
+          <Route path="/transactions/success" element={<ProtectedRoute roles={['operator']}><TransactionSuccess /></ProtectedRoute>} />
 
 
 
           {/* Merchant Product Routes (For Managers) */}
-          <Route path="/merchant-products/:id" element={<ProtectedRoute roles={['manager']}><MerchantProductList /></ProtectedRoute>} />
-          <Route path="/merchant-products/:id/assign" element={<ProtectedRoute roles={['manager']}><AddAssignProduct /></ProtectedRoute>} />
+          <Route path="/merchant-products/:id" element={<ProtectedRoute roles={['admin']}><MerchantProductList /></ProtectedRoute>} />
+          <Route path="/merchant-products/:id/assign" element={<ProtectedRoute roles={['admin']}><AddAssignProduct /></ProtectedRoute>} />
 
           {/* ✅ Updated Route for Editing Assigned Warehouse Product */}
           <Route path="/merchant-products/:merchantId/edit-assign/:productId" 
-            element={<ProtectedRoute roles={['manager']}><EditAssignProduct /></ProtectedRoute>} />
+            element={<ProtectedRoute roles={['admin']}><EditAssignProduct /></ProtectedRoute>} />
 
           {/* warehouse Product Routes (For Managers) */}
-          <Route path="/warehouse-products/:id" element={<ProtectedRoute roles={['manager']}><WarehouseProductList /></ProtectedRoute>} />
-          <Route path="/warehouse-products/:id/assign" element={<ProtectedRoute roles={['manager']}><AssignWarehouseProduct /></ProtectedRoute>} />
+          <Route path="/warehouse-products/:id" element={<ProtectedRoute roles={['admin']}><WarehouseProductList /></ProtectedRoute>} />
+          <Route path="/warehouse-products/:id/assign" element={<ProtectedRoute roles={['admin']}><AssignWarehouseProduct /></ProtectedRoute>} />
 
           {/* ✅ Updated Route for Editing Assigned Warehouse Product */}
           <Route path="/warehouse-products/:warehouseId/edit-assign/:productId" 
-            element={<ProtectedRoute roles={['manager']}><EditWarehouseProduct /></ProtectedRoute>} />
+            element={<ProtectedRoute roles={['admin']}><EditWarehouseProduct /></ProtectedRoute>} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>

@@ -59,7 +59,7 @@ const AddMerchant = () => {
       <div id="Content" className="flex flex-col flex-1 p-5 pt-0">
         <div id="Top-Bar" className="flex items-center w-full gap-5 mt-5 mb-5">
           <div id="Top-Bar" className="flex items-center w-full gap-5">
-            <UserProfileCard title="Tambah Merchant" backLink="/merchants" />
+            <UserProfileCard title="Tambah Toko" backLink="/merchants" />
           </div>
         </div>
         <main className="flex flex-col gap-6 flex-1">

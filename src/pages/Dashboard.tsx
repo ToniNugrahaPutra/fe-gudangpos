@@ -53,7 +53,7 @@ const Dashboard = () => {
               <div className="flex justify-between items-center rounded-3xl p-5 bg-white">
                 <div className="flex flex-col">
                   <p className="text-base font-medium text-font mb-4">
-                    Total Users
+                    Total Pengguna
                   </p>
                   <p className="text-2xl font-bold leading-tight">
                     {users.length}
@@ -71,7 +71,7 @@ const Dashboard = () => {
               >
                 <div className="flex flex-col">
                   <p className="text-base font-medium text-font mb-4">
-                    Total Revenue
+                    Total Penghasilan
                   </p>
                   <p className="text-2xl font-bold leading-tight">
                     Rp {totalRevenue.toLocaleString("id")}
@@ -89,7 +89,7 @@ const Dashboard = () => {
               >
                 <div className="flex flex-col">
                   <p className="text-base font-medium text-font mb-4">
-                    Total Transactions
+                    Total Transaksi
                   </p>
                   <p className="text-2xl font-bold leading-tight">
                     {transactions.length.toLocaleString("id") || 0}
@@ -107,7 +107,7 @@ const Dashboard = () => {
               >
                 <div className="flex flex-col">
                   <p className="text-base font-medium text-font mb-4">
-                    Products Sold
+                    Produk Terjual
                   </p>
                   <p className="text-2xl font-bold leading-tight">
                     {totalProductsSold.toLocaleString("id") || 0}
@@ -124,7 +124,7 @@ const Dashboard = () => {
                 id="Lastest-Transaction"
                 className="flex flex-col gap-5 flex-1 rounded-3xl p-5 bg-white"
               >
-                <h2 className="font-medium text-xl">Lastest Transaction</h2>
+                <h2 className="font-medium text-xl">Transaksi Terbaru</h2>
 
                 {transactions.length > 0 ? (
                   transactions.map((tx) => (
@@ -271,7 +271,7 @@ const Dashboard = () => {
                       <div className="flex items-center justify-start px-4 py-5">
                         <BanknotesIcon className="size-5 text-font" />
                         <p className="flex items-center gap-1 font-medium text-base text-font pl-2">
-                          Grandtotal:
+                          Total Keseluruhan :
                         </p>
                         <p className="font-semibold text-lg text-primary pl-2">
                           Rp {tx.grand_total.toLocaleString("id")}

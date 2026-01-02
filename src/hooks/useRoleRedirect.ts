@@ -8,9 +8,9 @@ export const useRoleRedirect = () => {
 
   useEffect(() => {
     if (!loading && user?.roles) {
-      if (user.roles.includes("manager")) {
+      if (user.roles.includes("admin")) {
         navigate("/dashboard");
-      } else if (user.roles.includes("keeper")) {
+      } else if (user.roles.includes("operator")) {
         navigate("/overview-merchant");
       }
     }
