@@ -6,7 +6,7 @@ import { AxiosError } from "axios";
 export const authService = {
   fetchUser: async (): Promise<User | null> => {
     try {
-      const { data } = await apiClient.get("/user");
+      const { data } = await apiClient.get("/pengguna");
       return { ...data, roles: data.roles ?? [] }; // ✅ Ensure roles exist
     } catch (error) {
       if (error instanceof AxiosError) {
